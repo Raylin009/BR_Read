@@ -2,10 +2,12 @@ const {getText} = require('./index.js');
 const { storeSalesParser } = require('./playground.js');
 
 const emailRead = async (img_path) => {
+  console.time('read_picture')
   const text = await getText(img_path)
+  console.timeEnd('read_picture')
   const read = storeSalesParser(text)
   const emailFormat = (textObj) => {
-    console.table(textObj)
+    // console.table(textObj)
     return {
       sales : textObj['Net sales'][1],
       traffic : textObj['Traffic count'][0],
