@@ -8,4 +8,4 @@ async function readImgText(img_path) {
   return detections
 }
 
-module.exports.getText = readImgText;
+module.exports.googleRead = readImgText;

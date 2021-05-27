@@ -1,57 +1,52 @@
-const { getText }= require('./index.js')
-const img_path = `${__dirname}/photos/test_1.jpg`
-const { exAPIRes } = require('./exData.js')
-
-const rmFiller = (string) => {
-  const arr = string.split('\n')
-  return arr
-// console.log(arr)
-  // console.log(arr)
-}
-
-const parser = async (textObj) => {
-  const textArray = rmFiller(textObj[0].description)
-  textArray.push('artificial tail lol')
-  const res = {}
-  const isDate = (str) => {
-    return str.includes(':')
-  }
-  const parseTime = (str) => {
-    return str
-  }
-  const isSubject = (str) => {
-    const char = str.match(/[A-Za-z]/g) || [];
-    const num = str.match(/[0-9]/g) || [];
-    return char.length > num.length
-  };
-
-  const isValue = (str) => {
-    const char = str.match(/[A-Za-z]/g) || [];
-    const num = str.match(/[0-9]/g) || [];
-    return char.length < num.length
-  }
-
-  const parseValue = (str) => {
-    return Number(str.replace(/[^0-9.-]+/g,""))
-  }
-  for(let i = 0; i < textArray.length - 1; i += 1){
-    const cur = textArray[i]
-    const next = textArray[i+1]
-    if(isDate(cur)){
-      const time = parseTime(cur)
-      res.time = time
-    }else if(isSubject(cur) && isValue(next)){
-      res[cur] = parseValue(next)
+parseStoreSales = (textObj) => {
+  let res = {};
+  const allText = textObj[0].description
+  const textArr = allText.split('\n')
+  // console.log(textArr)
+  for(let i = 0; i < textArr.length; i += 1){
+    const ele = textArr[i]
+    if(ele === "Gross sales" ||
+      ele === "Store returns" ||
+      ele === "Net sales" ||
+      ele === "Online returns" ||
+      ele === "issued" 
+    ){
+      const units = Number(textArr[i+1].replace(/[^0-9.-]+/g,""))
+      const amount = Number(textArr[i+2].replace(/[^0-9.-]+/g,""))
+      res[ele] = [units, amount]
+      // i +=2
+    }else if(
+      ele === "Net AT"||
+      ele === "Donations"
+    ){
+      const amount = Number(textArr[i+1].replace(/[^0-9.-]+/g,""))
+      res[ele] = [null, amount]
+    }else if(ele === "Net UPT" ||
+      ele === "Traffic count" ||
+      ele === "Transaction count"
+    ){
+      const units = Number(textArr[i+1].replace(/[^0-9.-]+/g,""))
+      res[ele] = [units, null]
+    }else if(ele === "Conversion rate"){
+      const units = Number(textArr[i+1].replace(/[^0-9.-]+/g,""))/100
+      res[ele] = [units, null]
     }
   }
-  console.log(res)
-  // console.log(textObj)
+  return res
 }
 
+const dailyReportFormat = (data) => {
+  return {
+    sales : data['Net sales'][1],
+    traffic : data['Traffic count'][0],
+    transaction : data['Transaction count'][0],
+    conversion : data['Conversion rate'][0]*100,
+    at: data['Net AT'][1],
+    upt: data['Net UPT'][0],
+  }
+}
 
+// parseStoreSales(data)
 
-// getText(img_path).then(parser).catch(console.log);
-
-parser(exAPIRes)
-  .then(console.log)
-  .catch(console.log)
+module.exports.storeSalesParser = parseStoreSales;
+module.exports.dailyReportFormat = dailyReportFormat;

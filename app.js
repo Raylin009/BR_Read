@@ -1,10 +1,11 @@
-const { getText } = require("./index.js");
-const { storeSalesParser } = require('./playground.js');
+const { googleRead } = require("./googleAI.js");
+const { storeSalesParser, dailyReportFormat } = require('./parser.js');
 
 const readSalesData = async(imgURL) => {
-  const googleData= await getText(imgURL);
+  const googleData= await googleRead(imgURL);
   const salesReadData = storeSalesParser(googleData);
-  return salesReadData
+  const res = dailyReportFormat(salesReadData)
+  return res
 };
 
 module.exports.readSalesData = readSalesData;
