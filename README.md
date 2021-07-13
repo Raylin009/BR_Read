@@ -22,4 +22,7 @@ nice to have
 To run this app, run the following command
 "node read.js"
 
+07/13/2021
+to test functionality, run "node test.js"
+it should take the "StoreSales.jpg" in "photos" folder and return a console.log data
 
