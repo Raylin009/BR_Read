@@ -26,3 +26,18 @@ To run this app, run the following command
 to test functionality, run "node test.js"
 it should take the "StoreSales.jpg" in "photos" folder and return a console.log data
 
+* BUG!: there is a error message when test with store test image 1.
+    note: after some investigation, the problem comes from the parser function which is hard coded to only handle sotre sales report, not store sales activity. it's a tech debt that future ray need to worry about
+
+So, just to catch up, this is what is going on; I can turn img into data now. The next step would be creating a front end, take in the image somehow, store the photo, parse the photo into data, then return the data. 
+
+idea1 temporay store the img on the client side
+pro: easy to impliment
+con: scalibility, require larger storage on instance, not a good practice
+
+idea2: write img to a photo hosting service (s3 bucket, flikcker) 
+pro: scalibility
+con: a little bit harder to impliment (I think)
+
+07/15/2021
+So i remember where i left of. i need to build serve the function to the front end. 
