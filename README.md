@@ -41,3 +41,11 @@ con: a little bit harder to impliment (I think)
 
 07/15/2021
 So i remember where i left of. i need to build serve the function to the front end. 
+
+okay so... it work!! yahhh!
+right now, server/index.js is functioning, what do i mean?
+I mean, when I go to Postman, do a GET request with the the params of {str:'${googleArchiveUrl}} on port 3050, it will take the googleArchiveUrl and return the data.
+what is the googleArchiveUrl you ask, Well... let me tell you. I added the photo i took of the store sales on the ipad at work, added to the BR read album, go to Google archive album, find the BR read album, right click on the image i want, copy the link and that link is what I have named as "googleArchiveUrl"
+
+okay I get. there is much refindment ahead, but it worked! furthermor, I don't need to find a serveice to host my image, google does it for me! 
+GOOD JOB RAY! go get them!
