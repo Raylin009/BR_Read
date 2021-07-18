@@ -1,8 +1,7 @@
 const express = require('express')
-const app = express()
 const port = 3050
 const { readSalesData } = require('../readImgApi/index.js');
-
+const app = express()
 
 app.use('/', express.static('./dist', {
   index: "index.html"
@@ -17,13 +16,20 @@ app.get('/read-sales-report',async(req, res)=>{
    * output: data
    */
 
-  console.log(req.query.str)
+  // console.log(req.query.url)
+  // console.log(req.body)
+  // console.log(req.params)
+
+  // console.log(Object.keys(req))
+  
+
   let data = {}
   try{
-    data = await readSalesData(req.query.str)
+    data = await readSalesData(req.query.url)
+    console.log("success")
   }catch (err) {
-    data = "shit"
-    console.log(err)
+    data = 'shit'
+    console.log(err) 
   }
   res.send(data)
 })

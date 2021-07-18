@@ -8,6 +8,7 @@ const User = () => {
           name: '',
           birthdate: '',
           photo: '',
+          url: '',
       }
   );
 
@@ -17,8 +18,9 @@ const User = () => {
       formData.append('photo', newUser.photo);
       formData.append('birthdate', newUser.birthdate);
       formData.append('name', newUser.name);
-      console.table(newUser.photo)
-      axios.post('http://localhost:5000/user', formData)
+      formData.append('url', newUser.url);
+      console.table(newUser.url)
+      axios.get('http://localhost:3050/read-sales-report',{ params: {url: newUser.url}})
             .then(res => {
               console.log(res);
             })
@@ -37,25 +39,18 @@ const User = () => {
 
   return (
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
-          <input 
+          {/* <input 
               type="file" 
               accept=".png, .jpg, .jpeg"
               name="photo"
               onChange={handlePhoto}
-          />
+          /> */}
 
           <input 
               type="text"
-              placeholder="name"
-              name="name"
-              value={newUser.name}
-              onChange={handleChange}
-          />
-
-          <input 
-              type="date"
-              name="birthdate"
-              value={newUser.date}
+              placeholder="sales read photo url"
+              name="url"
+              value={newUser.url}
               onChange={handleChange}
           />
 

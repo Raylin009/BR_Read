@@ -49,3 +49,10 @@ what is the googleArchiveUrl you ask, Well... let me tell you. I added the photo
 
 okay I get. there is much refindment ahead, but it worked! furthermor, I don't need to find a serveice to host my image, google does it for me! 
 GOOD JOB RAY! go get them!
+
+07/18/2021
+
+by the end of this hour, I will be able to upload the url and have it display the data
+
+you need to add body-parser to read the body of a http request
+
